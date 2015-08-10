@@ -17,15 +17,15 @@ router.get("/register", function(req, res, next){
 
 router.post("/register", function(req, res, next){
 	
-	var profileImageName = 'noimage.png';
+	var profileImagePath = 'uploads/noimage.png';
 	//getting the image.
-	if(req.files.file) {
-		var profileImageOriginalName = req.files.file.originalName;
-		var profileImageName = req.files.file.name;
-		var profileImageMime = req.files.file.mimetype;
-		var profileImagePath = req.files.file.path;
-		var profileImageExt = req.files.file.extension;
-		var profileImageSize = req.files.file.size;
+	if(req.files.userpic) {
+		var profileImageOriginalName = req.files.userpic.originalName;
+		var profileImageName = req.files.userpic.name;
+		var profileImageMime = req.files.userpic.mimetype;
+		var profileImagePath = req.files.userpic.path;
+		var profileImageExt = req.files.userpic.extension;
+		var profileImageSize = req.files.userpic.size;
 	}
 
 	//Create User:
@@ -34,7 +34,7 @@ router.post("/register", function(req, res, next){
 			email: req.body.email,
 			username: req.body.username,
 			password: req.body.password,
-			profileimage: profileImageName
+			profileimage: profileImagePath
 	});
 
 	User.createUser(newUser, function(err, user){
@@ -45,7 +45,6 @@ router.post("/register", function(req, res, next){
 		console.log(user);
 	});
 
-	req.flash('success','You are now registered and may log in');
 	res.location('/');
 	res.redirect('/');
 
