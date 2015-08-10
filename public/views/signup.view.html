@@ -1,7 +1,7 @@
-<h1> Register </h1>
+<!--h1> Register </h1>
 <div ng-controller = "SignupCtrl">
 <div class="container">
-<form>
+<form  ng-submit="sendSignup()">
   <div class="form-group">
     <label>name:</label>
     <input type="text" class="form-control" ng-model="name" name="name" placeholder="Enter name">
@@ -22,8 +22,21 @@
     <label>confirm password:</label>
     <input type="password" class="form-control" ng-model="password2" name="password2" placeholder="Confirm password">
   </div>
-  <button type="submit" class="btn btn-default" ng-click="sendSignup()">Submit</button>
+  <div class="form-group">
+    <label>profilePicture:</label>
+    <input type="file" name="userpic" id="userpic" ng-model="userpic" class="form-control"/>
+    <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+  </div>
+  <button type="submit" class="btn btn-default" >Submit</button>
   <a class="btn btn-danger" href="/#categories">Cancel</a>
   </form>
 </div>
-</div>
+</div-->
+<form id        =  "uploadForm"
+     enctype   =  "multipart/form-data"
+     action    =  "/api/photo"
+     method    =  "post"
+>
+<input type="file" name="userPhoto" />
+<input type="submit" value="Upload Image" name="submit">
+</form>

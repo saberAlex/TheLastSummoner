@@ -8,6 +8,10 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 
+//view engine:
+var hoganExpress = require('hogan-express');
+
+
  //adding new dependencies for userAuth:
 var expressValidator = require("express-validator");
 var session = require("express-session");
@@ -22,15 +26,30 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+app.locals.delimiters = '<% %>';
+
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
-app.use(express.static(__dirname + "/public"));
+// app.use(express.static(__dirname + "/public"));
+app.set('views', path.join(__dirname, 'public'));
+app.engine('html', hoganExpress);
+app.set("view engine", 'html');
 
-//using multer:
-app.use(multer({dest:'./uploads/'}).single('photo'));
-
+/*Configure the multer.*/
+app.use(multer({ dest: './uploads/',
+ rename: function (fieldname, filename) {
+    return filename+Date.now();
+  },
+onFileUploadStart: function (file) {
+  console.log(file.originalname + ' is starting ...')
+},
+onFileUploadComplete: function (file) {
+  console.log(file.fieldname + ' uploaded to  ' + file.path)
+  done=true;
+}
+}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -38,9 +57,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
-
-//Added:
+//ADDED
 //Handle Express Sessions
 app.use(session({
   secret:'secret',
@@ -69,8 +86,7 @@ app.use(expressValidator({
     };
   }
 }));
-
-//End of Added
+//END OF ADDED
 
 
 
@@ -82,13 +98,11 @@ app.use('/users', users);
 
 
 //ADDED
-
 app.use(flash());
 app.use(function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res);
   next();
 });
-
 //END OF ADDED
 
 
@@ -100,13 +114,14 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
 
+// error handlers
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
+    console.log(err.message);
     res.render('error', {
       message: err.message,
       error: err
@@ -118,6 +133,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
+  console.log(err.message);
   res.render('error', {
     message: err.message,
     error: {}
