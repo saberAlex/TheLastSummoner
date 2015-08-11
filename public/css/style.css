@@ -17,6 +17,9 @@ a {
 }
 
 .jobInfo {
-	margin-top: 5%;
 	padding-top: 5%;
+}
+#rate {
+	color: firebrick;
+	margin-bottom: 2%;
 }

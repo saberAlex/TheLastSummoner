@@ -65,11 +65,54 @@ app.controller("JobCtrl", function($scope, $rootScope, $http, $log, $location, j
   $scope.showJobInfo = function(key){
     console.log("I'm clicked");
     $scope.currentJob = $scope.jobList[key];
+    $log.info($scope.currentJob);
   }
+
+  $scope.$watch("currentJob", function() {
+    if($scope.currentJob) {
+      $scope.showInfo= true;
+    } else {
+      $scope.showInfo = false;
+    }
+  });
+
 
 }).directive('showJob', function() {
   return {
     templateUrl: "views/direct/job.direct.html",
-    restrict:'AE'
+    restrict:'AE',
+    controller: function($scope, $rootScope, $log, $http, jobsFactory){
+        $scope.rate = 7;
+        $scope.max = 10;
+        $scope.isReadonly = false;
+
+        $scope.hoveringOver = function(value) {
+          $scope.overStar = value;
+          $scope.percent = 100 * (value / $scope.max);
+        };
+
+        $scope.ratingStates = [
+          {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+          {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+          {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+          {stateOn: 'glyphicon-heart'},
+          {stateOff: 'glyphicon-off'}
+        ];
+        $scope.addComment = function() {
+            $log.info("Commenting");
+             var newData = {
+              username: $rootScope.user.username,
+              info: $scope.newComment,
+              createddate: new Date(),
+              userpic: $rootScope.user.profileimage
+             };
+             var url = "/jobs/" + $scope.currentJob.name;
+             $http.post(url, newData).success(function(data, status){
+                $scope.currentJob.comments.push(newData);
+                $scope.newComment = "";
+             });
+          };
+
+    }//end of ctrl
   }
 });

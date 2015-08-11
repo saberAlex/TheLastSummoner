@@ -35,7 +35,8 @@ router.post("/register", function(req, res, next){
     var profileImageOriginalName = req.files.userpic.originalName;
     var profileImageName = req.files.userpic.name;
     var profileImageMime = req.files.userpic.mimetype;
-    var profileImagePath = req.files.userpic.path;
+    //var profileImagePath = req.files.userpic.path;
+    var profileImagePath = "uploads/" + req.files.userpic.name;
     var profileImageExt = req.files.userpic.extension;
     var profileImageSize = req.files.userpic.size;
   }

@@ -1,4 +1,4 @@
-var app = angular.module('App',['ngRoute']);
+var app = angular.module('App',['ngRoute','ngAnimate', 'ui.bootstrap']);
 
 //creating the router. 
 //add heroes:
@@ -25,7 +25,9 @@ app.config(['$routeProvider', function($routeProvider){
 app.run( function($rootScope, $location) {
   $rootScope.$on("$routeChangeStart", function(event, next, current) {
 		if($rootScope.user == null) {
-			$location.path("/login");
+			// if($location.path() !="/signup" || $location.path() !="/login") {
+			// 	$location.path("/login");
+			// }
 		}
   });
 });

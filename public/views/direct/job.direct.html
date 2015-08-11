@@ -1,11 +1,48 @@
       		<div class="col-md-9">
       				<h2>{{currentJob.name}}</h2>
+              <div class="col-md-4" class='panel'>
+                  <img ng-src="{{currentJob.path}}" class="img-responsive"/>
+                </div>
       				<div class="row">
-      					<div class="col-md-4" class='panel'>
-      						<img ng-src="{{currentJob.path}}" class="img-responsive"/>
-      					</div>
+                  <div class="col-md-3" id="rate" ng-show="showInfo">
+                <h4>rate</h4>
+                    <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" ></rating>
+                    <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+                </div>
       					<div class="col-md-5" class ='jobInfo'>
       						<p> {{currentJob.info}}</p>
       					</div>
-      				</div>
-        		</div> 
+                <!--this is the comment-->
+                <div class="col-md-12" class="panel panel-info" >
+                  <div class="panel-body" ng-repeat="comment in currentJob.comments">
+                    <div>
+                      <div class="col-md-1 col-md-offset-1 ">
+                        <img src="{{comment.userpic}}" class="img-responsive"/>
+                      </div>
+                      <div class="col-md-5">
+                        <p>{{comment.username}}</p>
+                      </div>
+                       <div class="col-md-5">
+                        <p>{{comment.createddate | date:'medium'}}</p>
+                      </div>
+                      <div class="col-md-10">
+                        <p>{{comment.info}}</p>
+                      </div>
+                    </div>
+                </div>
+                    <!--adding comment-->
+                    <div class="panel-body" ng-show="showInfo">
+                    <form >
+                      <div class="form-group">
+                        <label for="comment">comment:</label> <br>
+                        <textarea ng-model="newComment" rows="2" id="comment" style="width:100%"> </textarea>
+                      </div>
+                      <div class="form-group">
+                        <a class="btn btn-primary" ng-click="addComment()">submit</a>
+                      </div>
+                    </form>
+                    <div>
+                  </div>
+
+                </div> 
+

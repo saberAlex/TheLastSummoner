@@ -19,3 +19,15 @@ Using multer to upload file:
 		POST /api/photo 200 8.681 ms - -
 
 //class active
+
+Finding element based on the element match in the array: db.jobs.find({ratings:{$elemMatch: {username: "admin"}}});
+
+db.jobs.find({ratings:{$elemMatch: {username: "admin"}}});
+db.jobs.update({"name":"knight"}, {
+	$push: {
+		comments: {
+			"username": "lucareto",
+			"info": "This is suitable for beginner"
+		}
+	}
+})

@@ -38,7 +38,7 @@ app.engine('html', hoganExpress);
 app.set("view engine", 'html');
 
 /*Configure the multer.*/
-app.use(multer({ dest: './uploads/',
+app.use(multer({ dest: './public/uploads/',
  rename: function (fieldname, filename) {
     return filename+Date.now();
   },

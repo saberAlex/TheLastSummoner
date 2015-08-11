@@ -1,5 +1,38 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
+var uniqueValidator = require("mongoose-unique-validator");
 
+
+var JobRatingSchema = mongoose.Schema({
+	username: {
+		type: String,
+		required: true,
+		unique: true
+	},
+	rate: {
+		type: Number,
+		required: true
+	}
+});
+JobRatingSchema.plugin(uniqueValidator);
+
+var JobCommentSchema = mongoose.Schema({
+	username: {
+		type: String,
+		required: true
+	},
+	info: {
+		type: String,
+		required: true
+	},
+	userpic :{
+		type: String,
+		default: "uploads/noimage.jpg"
+	},
+	createddate: {
+		type: Date,
+		default: Date.now
+	}
+});
 // User Schema
 var JobSchema = mongoose.Schema({
 	name: {
@@ -14,7 +47,18 @@ var JobSchema = mongoose.Schema({
 	path: {
 		type:String,
 		required: true
-	}
+	},
+	comments:[JobCommentSchema],
+	rating: {
+		type: Number,
+		required: true,
+		default: 0
+	},
+	ratings:[JobRatingSchema]
+});
+
+var JobCommentSchema = mongoose.Schema({
+
 });
 
 var Job = module.exports = mongoose.model('Job', JobSchema);
@@ -24,5 +68,26 @@ module.exports.getJobs = function(callback){
 };
 
 module.exports.getJobByName = function(name, callback){
-	User.findById(name, callback);
+	Job.findById(name, callback);
 };
+
+module.exports.addCommentByName = function(name, data, callback) {
+	//username, info
+	var username = data.username;
+	var info = data.info;
+	var createddate = data.createddate;
+	var userpic = data.userpic;
+
+	var newComment = {
+		username : username,
+		info: info,
+		createddate: createddate,
+		userpic: userpic
+	}
+
+	Job.findOneAndUpdate({"name": name}, {
+		$push: {
+			comments : newComment
+		}
+	}, callback);
+}
