@@ -1,10 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
-mongoose.connect('mongodb://localhost/lastsummoner');
-
-var db = mongoose.connection;
-
 // User Schema
 var UserSchema = mongoose.Schema({
 	username: {

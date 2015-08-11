@@ -17,3 +17,5 @@ Using multer to upload file:
 		     truncated: false,
 		     buffer: null } }
 		POST /api/photo 200 8.681 ms - -
+
+//class active

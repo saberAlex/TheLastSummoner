@@ -11,3 +11,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+.formViolation {
+	color: firebrick;
+}
+
+.jobInfo {
+	margin-top: 5%;
+	padding-top: 5%;
+}
