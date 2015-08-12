@@ -57,9 +57,6 @@ var JobSchema = mongoose.Schema({
 	ratings:[JobRatingSchema]
 });
 
-var JobCommentSchema = mongoose.Schema({
-
-});
 
 var Job = module.exports = mongoose.model('Job', JobSchema);
 

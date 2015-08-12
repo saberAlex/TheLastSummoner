@@ -17,6 +17,8 @@
     "express-validator": "^2.14.1",
     "hogan-express": "^0.5.2",
     "jade": "~1.11.0",
+    "moment": "^2.10.6",
+    "moment-range": "^2.0.3",
     "mongodb": "^2.0.40",
     "mongoose": "^4.1.1",
     "mongoose-unique-validator": "^0.4.1",

@@ -17,6 +17,7 @@
     "angular-route": "~1.4.3",
     "bootstrap": "~3.3.5",
     "angular": "~1.4.3",
-    "ng-file-upload": "~6.0.4"
+    "ng-file-upload": "~6.0.4",
+    "angular-carousel": "~0.3.12"
   }
 }

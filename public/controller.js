@@ -1,3 +1,5 @@
+"use strict";
+
 app.controller("LoginCtrl", function($scope, $rootScope, $http, $log, $location){
 
 $scope.sendLogin = function() {
@@ -56,6 +58,7 @@ app.controller("SignupCtrl", function($scope, $http, $log){
 app.controller("JobCtrl", function($scope, $rootScope, $http, $log, $location, jobsFactory){
   jobsFactory.getJobs().success(function(jobs){
     $scope.jobList = jobs;
+    $rootScope.jobList = $scope.jobList;
     $log.info($scope.jobList);
   })
   .error( function(err){
@@ -114,5 +117,34 @@ app.controller("JobCtrl", function($scope, $rootScope, $http, $log, $location, j
           };
 
     }//end of ctrl
+  }
+});
+
+app.controller("QuestCtrl", function($scope, $rootScope, $http, $log, $location){
+  $scope.showDaily = false;
+  $scope.openDailyCreator = function() {
+      $scope.showDaily = !$scope.showDaily;
+  }
+  
+
+});
+
+app.controller("HeroCtrl", function($scope, $rootScope, $http, $log, $location, jobsFactory){
+  $scope.jobList
+  if(!$rootScope.jobList){
+      jobsFactory.getJobs().success(function(jobs){
+      $rootScope.jobList = jobs;
+      console.log($rootScope.jobList);
+      $scope.jobList = jobs;
+      $log.info($scope.jobList);
+    })
+    .error( function(err){
+      $log.error(err);
+    });
+  } else {
+      $scope.jobList = $rootScope.jobList;
+  }
+  $scope.isClicked = function(key){
+    alert(key);
   }
 });

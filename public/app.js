@@ -1,4 +1,5 @@
-var app = angular.module('App',['ngRoute','ngAnimate', 'ui.bootstrap']);
+"use strict";
+var app = angular.module('App',['ngRoute','ngAnimate', 'ui.bootstrap', 'angular-carousel']);
 
 //creating the router. 
 //add heroes:
@@ -18,6 +19,14 @@ app.config(['$routeProvider', function($routeProvider){
 		 when('/signup',{
 			templateUrl: 'views/signup.view.html',
 			controller: 'SignupCtrl'
+		 }).
+		 when("/quest", {
+		 	templateUrl: "views/quest.view.html",
+		 	controller: "QuestCtrl"
+		 }).
+		 when("/hero",{
+		 	templateUrl: "views/hero.view.html",
+		 	controller: "HeroCtrl"
 		 }).
 		otherwise({redirectTo: "/"});
 }]);

@@ -1,6 +1,29 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
+var HeroSchema = mongoose.Schema({
+	name: {
+		type: String,
+		required: true,
+		unique: true
+	},
+	job: {
+		type: String,
+		required: true
+	},
+	level: {
+		type: Number,
+		required: true,
+		default: 1
+	},
+	exp: {
+		type: Number,
+		required: true,
+		default: 0
+	}
+});
+
+
 // User Schema
 var UserSchema = mongoose.Schema({
 	username: {
@@ -18,7 +41,14 @@ var UserSchema = mongoose.Schema({
 	},
 	profileimage:{
 		type: String
+	},
+	heros:[HeroSchema],
+	totalHero: {
+		type: Number,
+		required: true,
+		default: 0
 	}
+
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);
@@ -47,4 +77,15 @@ module.exports.createUser = function(newUser, callback) {
 		// Create User
 		newUser.save(callback)
 	});
+}
+
+module.exports.createHeroForUsername = function(username, newHero, callback){
+	User.findOneAndUpdate({"username": username, totalHero:{$lt:3} }, {
+		$push: {
+			heros: newHero
+		},
+		$inc: {
+			totalHero:1
+		}
+	}, callback);
 }

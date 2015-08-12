@@ -1,0 +1,14 @@
+            <div class="container panel">
+                <div class="carousel-demo col-md-4 col-md-offset-4">
+                    <ul rn-carousel rn-carousel-index="carouselIndex3" rn-carousel-transition="hexagon" rn-carousel-buffered class="carousel3">
+                        <li ng-repeat="job in jobList">
+                               <div ng-style="{'background-image': 'url(' + job.path + ')'}"  class="bgimage">
+                                   <img ng-src="{{job.path}}" style="visibility:hidden"/>
+                            </div>
+                        </li>
+                    </ul>
+            <div class="rn-carousel-indicator custom-indicator">
+                        <span ng-repeat="job in jobList" ng-class="{active: $index==$parent.carouselIndex22}" ng-click="$parent.carouselIndex22 = $index">★</span>
+                    </div>
+                </div>
+            </div>

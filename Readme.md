@@ -31,3 +31,16 @@ db.jobs.update({"name":"knight"}, {
 		}
 	}
 })
+
+
+username, 
+name,
+info,
+rate, 
+createddate
+updatedate
+completetoday
+streak,
+totalcompleted
+totalmiss
+heroalias

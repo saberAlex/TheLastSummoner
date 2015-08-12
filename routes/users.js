@@ -10,6 +10,22 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+//FOR CREATING HERO
+router.post("/createhero/:username", function(req, res, next){
+  var data = {
+    name: res.body.name,
+    job: res.body.job
+  }
+  User.createHeroForUsername(req.params.username, data, function(err,hero){
+    if(err) console.log(err);
+    res.json(hero);
+  });
+});
+//END FOR CREATING THE HERO
+
+
+
+
 
 router.get("/register", function(req, res, next){
   //redirect to home.
