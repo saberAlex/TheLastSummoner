@@ -13,8 +13,8 @@ router.get('/', function(req, res, next) {
 //FOR CREATING HERO
 router.post("/createhero/:username", function(req, res, next){
   var data = {
-    name: res.body.name,
-    job: res.body.job
+    name: req.body.name,
+    job: req.body.job
   }
   User.createHeroForUsername(req.params.username, data, function(err,hero){
     if(err) console.log(err);
@@ -38,6 +38,7 @@ router.get("/:username", function(req,res, next){
     if(err) {
       console.log(err);
     }
+    console.log(user);
     res.json(user);
   });
 

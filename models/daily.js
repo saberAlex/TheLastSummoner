@@ -77,6 +77,17 @@ module.exports.getDailysById = function(id, callback){
 	Job.findById(id, callback);
 };
 
+
+module.exports.createDaily = function(data, callback){
+	var newDaily = new Daily();
+	newDaily.name = data.name;
+	newDaily.username = data.username;
+	newDaily.info = data.info;
+	newDaily.rate = data.rate;
+	newDaily.heroalias = data.heroalias;
+	newDaily.save(callback);
+}
+
 /*
 username, 
 name,

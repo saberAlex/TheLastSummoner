@@ -19,25 +19,28 @@ router.get('/id/:id', function(req, res, next) {
   }); 
 });
 
-router.get("/username/:username", function(req, res, next){
+router.get("/:username", function(req, res, next){
 	Daily.getDailysByUsername(req.params.username, function(err, dailys){
 		if(err) console.log(err);
     	res.json(dailys);
 	})
 })
 
-router.post("/:name", function(req, res, next) {
+router.post("/create", function(req, res, next){
 	var data = {
+		name : req.body.name,
 		username: req.body.username,
 		info: req.body.info,
-		createddate: req.body.createddate,
-		userpic : req.body.userpic
+		rate: req.body.rate,
+		heroalias: req.body.heroalias
 	}
-	Job.addCommentByName(req.params.name, data, function(err, job){
-		if(err) console.log(err);
-    	res.json(job);
+
+	Daily.createDaily(data, function(err, daily){
+		if(err) throw err;
+		res.json(daily);
 	})
-})
+});
+
 
 
 module.exports = router;

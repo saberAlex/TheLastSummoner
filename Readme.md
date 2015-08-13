@@ -44,3 +44,8 @@ streak,
 totalcompleted
 totalmiss
 heroalias
+
+
+Todo List: 
+	> update the structure, all user will have daily, Hero, and Quest in one place. 
+	> This is the most convinient

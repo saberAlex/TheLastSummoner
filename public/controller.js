@@ -11,8 +11,8 @@ $scope.sendLogin = function() {
 
      $http.post('/users/login', data).success(function(data, status){
       console.log(status);
-      $log.info(data);
       $rootScope.user = data;
+      $log.info($rootScope.user);
      });
   };
 
@@ -122,10 +122,58 @@ app.controller("JobCtrl", function($scope, $rootScope, $http, $log, $location, j
 
 app.controller("QuestCtrl", function($scope, $rootScope, $http, $log, $location){
   $scope.showDaily = false;
+  $scope.showCreateDaily = false;
   $scope.openDailyCreator = function() {
-      $scope.showDaily = !$scope.showDaily;
+      $scope.showCreateDaily = !$scope.showCreateDaily;
   }
-  
+
+  $rootScope.user.getHero = function(key) {
+    if(key == -1){
+      return "all";
+    } else {
+      return $rootScope.user.heros[key].name + ";exp: " + $rootScope.user.heros[key].exp ;
+    }
+  }
+
+  $scope.createDaily = function() {
+    var newDaily = {
+      name: $scope.name,
+      username: $rootScope.user.username,
+      info: $scope.info,
+      rate: $scope.rate,
+      heroalias: $scope.heroalias
+    }
+    var url = "/dailys/create";
+    var promise = $http.post(url, newDaily);
+    promise.then(
+       function(data) {
+            if(!$rootScope.user.dailys) {
+              $rootScope.user.dailys;
+            } else {
+              $rootScope.user.dailys.push(data.data);
+            }
+            $log.info(data.data);
+          });
+}
+
+  $scope.getDaily = function() {
+     $scope.showDaily = true;
+    var promise = $http.get("/dailys/"+$rootScope.user.username);
+    promise.then(
+      function(data){
+        $rootScope.user.dailys;
+        $rootScope.user.dailys = data.data;
+        $log.info($rootScope.user.dailys);
+      });
+  }
+
+  $scope.openDetailDaily = function() {
+
+  }
+
+  $scope.dummydate = new Date();
+  $scope.dummyComplete = false;
+  $scope.isDisabled = false;
 
 });
 
@@ -144,7 +192,25 @@ app.controller("HeroCtrl", function($scope, $rootScope, $http, $log, $location, 
   } else {
       $scope.jobList = $rootScope.jobList;
   }
-  $scope.isClicked = function(key){
-    alert(key);
+  
+  $scope.createHero = function() {
+    var data = {
+      name: $scope.name,
+      job: $scope.selectedJob
+    }
+    $log.info(data);
+
+    var url = "/users/createhero/"+ $rootScope.user.username;
+    var promise = $http.post(url, data);
+    promise.then(
+       function(data) {
+          $http.get("/users/" + $rootScope.user.username).
+          success(function(data){
+            $rootScope.user = data;
+            $log.info($rootScope.user);
+          });
+           $location.path('/#/hero');
+       });
   }
-});
+
+  });

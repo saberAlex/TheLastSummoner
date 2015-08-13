@@ -23,3 +23,12 @@ a {
 	color: firebrick;
 	margin-bottom: 2%;
 }
+
+.heroInfo{
+	color: firebrick;
+	 text-align:center;
+}
+#selectHero {
+	margin-top: 5%;
+	 text-align:center;
+}
