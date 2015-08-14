@@ -21,9 +21,15 @@ router.post("/createhero/:username", function(req, res, next){
     res.json(hero);
   });
 });
+
 //END FOR CREATING THE HERO
 
-
+router.delete("/delete/:username/id/:id", function(req, res, next){
+  User.deleteHeroByUsername(req.params.username, req.params.id, function(err, user){
+    if(err) console.log(err);
+    res.json(user);
+  }); 
+});
 
 
 

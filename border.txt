@@ -1,0 +1,2 @@
+HERO RELATED PROCEDURE [HRP]
+	> This section is related to hero model in models/user.js

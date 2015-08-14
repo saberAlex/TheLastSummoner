@@ -26,7 +26,7 @@
   <a class="btn btn-danger" >cancel</a>
   </form>
   <div class="btn-group" role="group" id="selectHero">
-  <button ng-repeat="hero in user.heros"type="button" class="btn btn-default  col-md-4"><img ng-src="{{'img/jobs/'+hero.job +'.png'}}" class="img-responsive"></button>
+  <button ng-repeat="hero in user.heros"type="button" class="btn btn-default  col-md-4"><img ng-src="{{'img/jobs/'+hero.job +'.png'}}" class="img-responsive" ng-click="deleteHero(hero._id)"></button>
   <button type="button" class="btn btn-default col-md-4"><img src="img/jobs/createHero.jpg" class="img-responsive"></button>
 
 </div>

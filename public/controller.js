@@ -135,34 +135,31 @@ app.controller("QuestCtrl", function($scope, $rootScope, $http, $log, $location)
     }
   }
 
-  $scope.createDaily = function() {
+  $scope.createDaily = function(event) {
+    event.preventDefault();
     var newDaily = {
       name: $scope.name,
       username: $rootScope.user.username,
       info: $scope.info,
-      rate: $scope.rate,
-      heroalias: $scope.heroalias
+      rate: $scope.rate
     }
-    var url = "/dailys/create";
+    var url = "/quests/createDaily";
     var promise = $http.post(url, newDaily);
     promise.then(
        function(data) {
-            if(!$rootScope.user.dailys) {
-              $rootScope.user.dailys;
-            } else {
-              $rootScope.user.dailys.push(data.data);
-            }
-            $log.info(data.data);
+            $rootScope.user = data;
+            $log.info($rootScope.user);
           });
 }
 
   $scope.getDaily = function() {
      $scope.showDaily = true;
-    var promise = $http.get("/dailys/"+$rootScope.user.username);
+    var promise = $http.get("/quests/getdaily/"+$rootScope.user.username);
     promise.then(
       function(data){
         $rootScope.user.dailys;
-        $rootScope.user.dailys = data.data;
+        $log.info(data);
+        $rootScope.user.dailys = data.data[0].quest.daily;
         $log.info($rootScope.user.dailys);
       });
   }
@@ -209,8 +206,20 @@ app.controller("HeroCtrl", function($scope, $rootScope, $http, $log, $location, 
             $rootScope.user = data;
             $log.info($rootScope.user);
           });
-           $location.path('/#/hero');
        });
   }
+
+  $scope.deleteHero = function( heroid ){
+    var url = "/users/delete/" + $rootScope.user.username + "/id/" + heroid ;
+    $log.info(heroid);
+    $http.delete(url).success(function(err, data){
+      if(err) console.log(err);
+      //$log.info(data);
+      $rootScope.user = data;
+    });
+  };
+
+
+
 
   });

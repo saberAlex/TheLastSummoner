@@ -27,7 +27,7 @@ var flash = require("connect-flash");
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var jobs = require('./routes/jobs');
-var dailys = require("./routes/dailys");
+var quests = require("./routes/quests");
 
 var app = express();
 app.locals.delimiters = '<% %>';
@@ -96,7 +96,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/jobs',jobs);
-app.use("/dailys", dailys);
+app.use("/quests", quests);
 
 
 //ADDED
