@@ -115,8 +115,6 @@
       	});
       	  
       	}
-
-
         }],
       size: size,
       resolve: {
@@ -126,6 +124,41 @@
       }
     });
   };
+
+  $scope.openDaily = function (size) {
+    var modalInstance = $modal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'views/modal/daily.modal.html',
+      controller: ['$scope','$log', '$http', '$rootScope', function($scope, $log, $http, $rootScope) {
+      	$scope.userExist = true;
+      	$scope.createDaily = function() {
+      	  var url = "/dailys/create/"+ $rootScope.user.username;
+      	  var data = {
+      	  	name: $scope.daily.name,
+      	  	info: $scope.daily.info,
+      	  	rate: $scope.daily.rate
+      	  }
+	      $http.post(url, data).success(function(data, status){
+	       console.log(status);
+	       $rootScope.user = data;
+	       $log.info($rootScope.user);
+	      });
+      	};
+     }],
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+  };
+
+  $scope.showDaily = function(key){
+  	$scope.quest = jQuery.extend(true, {}, $rootScope.user.daily[key]);
+  }
+
+
 });
 
 

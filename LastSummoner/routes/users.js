@@ -30,11 +30,7 @@ router.delete("/deletehero/:username/:id", function(req, res, next){
 	})
 });
 
-
 //END FOR CREATING THE HERO
-// router.get("/register", function(req, res, next){
-// });
-
 router.get("/:username", function(req,res, next){
   User.getUserByUsername(req.params.username,function(err, user){
     if(err) {

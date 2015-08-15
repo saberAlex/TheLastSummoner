@@ -4,31 +4,85 @@ var bcrypt = require('bcrypt');
 var HeroSchema = mongoose.Schema({
 	name: {
 		type: String,
-		required: true,
-		unique: true
+		required: true
 	},
 	job: {
 		type: String,
 		required: true
-	},
-	level: {
-		type: Number,
-		required: true,
-		default: 1
-	},
-	exp: {
-		type: Number,
-		required: true,
-		default: 0
 	}
 });
 
+var DailySchema = mongoose.Schema({
+	name: {
+		type: String, 
+		required: true
+	},
+	info: {
+		type: String
+	},
+	lastmodified: {
+		type: String,
+		required: true,
+		default: Date.now
+	},
+	createddate: {
+		type: String,
+		required: true,
+		default: Date.now
+	},
+	completed: {
+		type: Boolean,
+		required: true, 
+		default: false
+	},
+	streak: {
+		type: Number,
+		required: true,
+		default: 0
+	},
+	rate: {
+		type: Number,
+		required: true,
+		default: 10
+	}
+});
+
+var TaskSchema = mongoose.Schema({
+	name: {
+		type: String, 
+		required: true
+	},
+	info: {
+		type: String
+	},
+	deadline: {
+		type: String,
+		required: true,
+		default: Date.now
+	},
+	createddate: {
+		type: String,
+		required: true,
+		default: Date.now
+	},
+	completed: {
+		type: Boolean,
+		required: true, 
+		default: false
+	},
+	rate: {
+		type: Number,
+		required: true,
+		default: 10
+	}
+});
 
 // User Schema
 var UserSchema = mongoose.Schema({
 	username: {
 		type: String,
-		index: true
+		index: true,
+		unique: true
 	},
 	password:{
 		type: String, required: true, bcrypt:true
@@ -46,9 +100,28 @@ var UserSchema = mongoose.Schema({
 	totalHero: {
 		type: Number,
 		required: true,
-		default: 0
-	}
-
+		default: 0,
+		min: 0
+	},
+	gameplay: {
+		level: {
+			type: Number,
+			required: true,
+			default: 1
+		},
+		exp: {
+			type: Number, 
+			required: true,
+			default: 0
+		},
+		totalexp: {
+			type: Number,
+			required: true,
+			default: 0
+		}
+	},
+	daily: [DailySchema],
+	task: [TaskSchema]
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);

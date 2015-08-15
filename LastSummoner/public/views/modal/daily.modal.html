@@ -1,0 +1,23 @@
+        <div class="modal-header">
+            <h3 class="modal-title">Create Daily</h3>
+        </div>
+        <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label>name:</label>
+                <input type="text" class="form-control" ng-model="daily.name" name="name" placeholder="Enter name" required>
+              </div>
+              <div class="form-group">
+                <label>info:</label>
+                <input type="text" class="form-control" ng-model="daily.info" name="info" placeholder="Enter name" required>
+              </div>
+              <label>rate:</label>
+              <select ng-model="daily.rate" convert-to-number>
+                <option value="5">Easy</option>
+                <option value="10">Medium</option>
+                <option value="15">Hard</option>
+              </select>
+              <button type="submit" class="btn btn-info" ng-disabled="myForm.name.$error.required ||  myForm.info.$error.required" ng-click="createDaily()">create daily-job</button>
+              <a class="btn" ng-click="$close(result)">Close</a>
+              </form>       
+        </div>

@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var ObjectID = require('mongodb').ObjectID;
+var moment = require('moment');
+require('moment-range');
+
 
 
 
@@ -47,6 +50,11 @@ var DailySchema = mongoose.Schema({
 		type: Number,
 		required: true,
 		default: 10
+	}, 
+	isDaily: {
+		type: Boolean,
+		required: true,
+		default: true
 	}
 });
 
@@ -77,6 +85,11 @@ var TaskSchema = mongoose.Schema({
 		type: Number,
 		required: true,
 		default: 10
+	},
+	isDaily: {
+		type: Boolean,
+		required: true,
+		default: false
 	}
 });
 
@@ -155,6 +168,7 @@ module.exports.createUser = function(newUser, callback) {
 	});
 }
 
+//HERO RELATED:
 module.exports.createHeroForUsername = function(username, newHero, callback){
 	User.findOneAndUpdate({"username": username, totalHero:{$lt:3} }, {
 		$push: {
@@ -177,4 +191,18 @@ module.exports.removeHeroForUsername = function(username, heroId, callback){
 	},{new: true}, callback);
 }
 
+//QUEST RELATED
+//DAILY RELATED:
+module.exports.createDailyForUsername = function(username, newDaily, callback){
+	User.findOneAndUpdate({"username": username}, {
+		$push: {
+			daily: newDaily
+		}
+	},{new: true, upsert: false}, callback);
+}
 
+module.exports.checkDailyByUsername = function(username){
+	User.findOne({username: username}, {"daily._id": 1, _id : 0}, function(err, user){
+
+	});
+}

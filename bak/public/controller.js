@@ -2,7 +2,7 @@
 
 app.controller("LoginCtrl", function($scope, $rootScope, $http, $log, $location){
 
-$scope.sendLogin = function() {
+$scope.login = function() {
     $log.info("I am login");
      var data = {
       username: $scope.username,
@@ -20,7 +20,7 @@ $rootScope.user;
 $rootScope.$watch('user', function(){
   if($rootScope.user) {
      $location.path("/#/");
-  }
+}
 });
 
 });

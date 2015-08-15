@@ -5,7 +5,13 @@
 <div class="jumbotron col-md-8">
         <h1>Welcome</h1>
         <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-info" ng-click="open('sm')" role="button">Sign up today</a></p>
+        <a ng-hide="isLogin" class="btn btn-info" ng-click="open('sm')" role="button">Register today</a>
+        <div ng-show="isLogin" class="btn-group" role="group">
+          <button type="button" class="btn btn-info" ng-click="openDaily('sm')">create daily-job</button>
+          <button type="button" class="btn btn-success">create task</button>
+          <button type="button" class="btn btn-danger">go to arena</button>
+        </div>
+        <br>
 </div>
   <div class="col-md-3" ng-hide="isLogin">
   <h2>Login </h2>
@@ -91,14 +97,10 @@
   <tabset>
     <tab>
       <tab-heading>
-        <i class="glyphicon glyphicon-bell"></i> show info!
+        <i class="glyphicon glyphicon-bell"></i> daily-job
       </tab-heading>
        <div class="list-group">
-          <button type="button" class="list-group-item" ng-click="show()">Cras justo odio</button>
-          <button type="button" class="list-group-item" ng-click="show(1)">Dapibus ac facilisis in</button>
-          <button type="button" class="list-group-item">Morbi leo risus</button>
-          <button type="button" class="list-group-item">Porta ac consectetur ac</button>
-          <button type="button" class="list-group-item">Vestibulum at eros</button>
+          <button type="button" class="list-group-item" ng-click="showDaily(key)" ng-repeat="(key, daily) in user.daily">{{daily.name + ' -rate: ' + daily.rate}} <span class="badge">{{daily.streak}}</span></button>
        </div>
        
     </tab>
@@ -114,15 +116,16 @@
   <div class="well list-group-item">
             <button type="button" ng-click="showEditDaily()" class="btn-success rightButton"> {{buttonName}} </button>
             <div ng-hide="showEdit">
-              <h2>{{name}}</h2>
-              <p>{{info}}</p>
+              <h2>{{quest.name}}</h2>
+              <p><span class="badge">{{quest.streak}}</span>{{quest.info}}</p>
               <form>
               <label>
-                <input type="checkbox" ng-model="dummyComplete" ng-checked="submitComplete()"  ng-disabled="dummyComplete"> completed
+                <input type="checkbox" ng-model="quest.completed" ng-checked="submitCompleteQuest(quest.isDaily)"  ng-disabled="quest.completed"> completed
               </label>
               </form>
               <p>Created date:</p> 
-              <span>{{Date.now | date:'yyyy-MM-dd'}}</span>
+              <span>{{quest.createddate | date:'dd-MM-yyyy'}}</span>
+              <br>
               <button type="button" class="btn-danger"><i class="glyphicon glyphicon-bell"></i> delete</button>
            </div>   
            <div ng-show="showEdit">
@@ -130,16 +133,22 @@
               <form>
                 <div class="form-group">
                   <label>name:</label>
-                  <input type="text" class="form-control" ng-model="name" name="name" placeholder="Enter name" required>
+                  <input type="text" class="form-control" ng-model="quest.name" name="questName" placeholder="Enter name" required>
                 </div>
                 <div class="form-group">
                   <label>info:</label>
-                  <textarea type="text" rows="2" class="form-control" ng-model="info" name="info" placeholder="Enter info"></textarea>
+                  <textarea type="text" rows="2" class="form-control" ng-model="quest.info" name="questInfo" placeholder="Enter info"></textarea>
                 </div>
                 <div  class="form-group">
                   <label>date:</label>
-                  <input type="date" class="form-control" ng-model="name" name="name" placeholder="Enter name" required>
+                  <input type="date" class="form-control" ng-model="quest.deadline" name="questDate" placeholder="Enter name" required>
                 </div>
+                <label>rate:</label>
+                <select ng-model="quest.rate" convert-to-number>
+                  <option value="5">Easy</option>
+                  <option value="10">Medium</option>
+                  <option value="15">Hard</option>
+                </select>
               </form>
               <button type="button" class="btn-danger"><i class="glyphicon glyphicon-floppy-disk"></i> save </button>
           </div>
