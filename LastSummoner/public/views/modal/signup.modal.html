@@ -1,15 +1,32 @@
         <div class="modal-header">
-            <h3 class="modal-title">I'm a modal!</h3>
+            <h3 class="modal-title">Register</h3>
         </div>
         <div class="modal-body">
-            <ul>
-                <li ng-repeat="item in items">
-                    <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
-                </li>
-            </ul>
-            Selected: <b>{{ selected.item }}</b>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            <form novalidate name="myForm"    
+                 enctype   =  "multipart/form-data"
+                 action    =  "/users/register"
+                 method    =  "post">
+              <div class="form-group">
+                <label>name:</label>
+                <input type="text" class="form-control" ng-model="name" name="name" placeholder="Enter name" required>
+              </div>
+              <div class="form-group">
+                <label>email:</label>
+                <input type="email" class="form-control" ng-model="email" name="email" placeholder="Enter email" required>
+              </div>
+              <div class="form-group">
+                <label>username:</label>
+                <input type="text" class="form-control" ng-model="username" name="username" placeholder="Enter username" required ng-blur="checkUsername()"><span ng-show="showUsernameInfo" class="formViolation">username exists</span>
+              </div>
+              <div class="form-group">
+                <label>password:</label>
+                <input type="password" class="form-control" ng-model="password" name="password" placeholder="Enter password" required>
+              </div>
+              <div class="form-group">
+                <label>profilePicture:</label>
+                <input type="file" name="userpic" class="form-control"/>
+              </div>
+              <button type="submit" class="btn btn-default" ng-disabled="myForm.name.$dirty && myForm.name.$invalid || myForm.email.$dirty && myForm.email.$invalid || myForm.name.$pristine || myForm.email.$pristine || myForm.username.$error.required || userExist || myForm.password.$error.required" ng-click="$close(result)">Submit</button>
+              <a class="btn" ng-click="$close(result)">Close</a>
+              </form>       
         </div>

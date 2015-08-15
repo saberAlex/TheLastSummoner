@@ -12,21 +12,21 @@
     <form>
       <div class="form-group">
         <label>username:</label>
-        <input type="text" class="form-control" ng-model="name" name="name" placeholder="Enter name" required>
+        <input type="text" class="form-control" ng-model="username" name="username" placeholder="Enter name" required>
       </div>
       <div class="form-group">
         <label>password:</label>
-        <input type="text" rows="2" class="form-control" ng-model="info" name="info" placeholder="Enter info">
+        <input type="password" rows="2" class="form-control" ng-model="password" name="password" placeholder="Enter password">
       </div>
       <div  class="form-group">
-      <a type="submit" class="btn btn-info" ng-click="isLogin= !isLogin">login</a>
+      <a type="submit" class="btn btn-info" ng-click="login()">login</a>
       </div>
     </form>
   </div>
   <div class="col-md-3" ng-show="isLogin">
-    <img class=" img-responsive btn" src="img/logout.jpg" ng-click="isLogin= !isLogin"/>
+    <img class=" img-responsive btn" src="img/logout.jpg" ng-click="logout()"/>
     <div>
-      <p> this will be chat placeholder</p>
+      <p> chat </p>
     </div>
   </div>
 </div>
@@ -36,11 +36,11 @@
 <div class="col-md-3">
 <div class="row">
   <div class="col-md-3">
-        <img class="media-object img-responsive userpic" src="img/agas.jpg" alt="...">
+        <img class="media-object img-responsive userpic" ng-src="{{user.profileimage}}" alt="...">
   </div>
   <div class="col-md-9">
-      <h4><strong>{{"hello" + username}}</strong></h4>
-      <p> Cras justo odio <span class="badge">14</span></p>
+      <h4><strong>{{"hello " + user.username}}</strong></h4>
+      <p> Level <span class="badge">{{user.gameplay.level}}</span></p>
   </div>
   <div class="col-md-12">
     <div clas="row">
@@ -49,46 +49,39 @@
     </div>
     <div class="col-md-9">
       <div class="progress">
-      <div class="progress-bar progress-bar-warning" ng-style="{'width': '50%'}"></div>
+      <div class="progress-bar progress-bar-danger" ng-style="{'width': 'myExp'}"></div>
   </div>
   </div>
   </div>
   </div>
+
    <div class="col-md-12">
-    </hr>
-  </div>
-  <div class="col-md-4">
-      </br>
-      <img class="media-object img-responsive userpic" src="img/agas.jpg">
-  </div>
-   <div class="col-md-4">
-      </br>
-      <img class="media-object img-responsive userpic" src="img/agas.jpg">
-  </div>
-   <div class="col-md-4">
-      </br>
-      <img class="media-object img-responsive userpic" src="img/agas.jpg">
-  </div>
-  </div>
-  </div>
+   <div class="row">
+    <div ng-repeat="(key, hero) in user.heros" class="col-md-4">
+        </br>
+        <input type="image" class="media-object img-responsive userpic" ng-src="{{'img/jobs/'+hero.job+'.png'}}" ng-click="deleteHero(hero._id, key )">
+        <p>{{hero.name}}</p>
+    </div>
+   </div>
+   </div>
+   </div>
+   </div>
 
     <div class="col-md-3 well">
       <h4><b>create hero</b></h4>
     <form>
       <div class="form-group">
-        <label>Name:</label>
-        <input type="text" class="form-control" ng-model="name" name="name" placeholder="Enter name" required>
+        <label>name:</label>
+        <input type="text" class="form-control" ng-model="hero.name" placeholder="Enter name" required>
       </div>
       <div class="form-group">
-        <label>Job:</label>
-        <select ng-model="model.id" convert-to-number>
-          <option value="0">Zero</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
+        <label>job:</label>
+        <select ng-model="hero.job">
+          <option ng-repeat="job in jobList" value="{{job.name}}">{{job.name}}</option>
         </select>
       </div>
       <div  class="form-group">
-      <a type="submit" class="btn btn-info">create</a>
+      <a type="submit" class="btn btn-warning" ng-click="createHero()">create</a>
       </div>
     </form>
   </div>
