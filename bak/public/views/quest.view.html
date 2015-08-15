@@ -1,0 +1,71 @@
+<div class="jumbotron">
+        <h1>Quest and Daily-job</h1>
+        <p class="lead">As a hero, you can create your own quest and daily-job. By completing your daily job you gain experiences (EXP) to make your hero stronger. </p>
+        <div class="btn-group btn-group-lg" role="group" aria-label="...">
+          <button type="button" class="btn btn-primary" ng-click="openDailyCreator()">create daily-job</button>
+          <button type="button" class="btn btn-danger">create quest</button>
+          <button type="button" class="btn btn-warning" ng-click="getDaily()">show daily-job</button>
+          <button type="button" class="btn btn-success">show quest</button>
+        </div>
+</div>
+
+<div ng-show="showCreateDaily">
+<h1> Create Daily Job </h1>
+<div class="container">
+<form ng-submit="createDaily()">
+  <div class="form-group">
+    <label>name:</label>
+    <input type="text" class="form-control" ng-model="name" name="name" placeholder="Enter name" required>
+  </div>
+  <div class="form-group">
+    <label>description:</label>
+    <textarea ng-model="info" rows="2" style="width:100%" name="info" required> </textarea>
+  </div>
+  <div class="form-group">
+    <label>rate:</label>
+    <select ng-model="rate" convert-to-number required>
+	  <option value="5">easy</option>
+	  <option value="10">medium</option>
+	  <option value="15">hard</option>
+	</select>
+  </div>
+  <div class="form-group">
+    <label>assigned hero:</label>
+    <select ng-model="heroalias" convert-to-number required>
+    <option value="-1">all</option>
+    <option ng-repeat="(key, value) in user.heros" value="{{key}}">{{value.name + " - " + value.job }}</option>
+  </select>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+  <a class="btn btn-danger" ng-click="openDailyCreator()">Cancel</a>
+  </form>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-3" ng-show="showDaily" >
+  <div class="btn-group-vertical" role="group">
+        <button type="button" class="btn-lg btn-danger btn-block" ng-click="openDetailDaily(daily)">      dummy
+      <span class="badge align-right">5</span> 
+      </button>
+      <button ng-repeat="daily in user.dailys" type="button" class="btn-lg btn-danger btn-block" ng-click="openDetailDaily(daily)">      {{daily.name}}
+      <span class="badge align-right">{{daily.streak}}</span> 
+      </button>
+  </div>     
+</div>
+<div class="col-md-6 well">
+    <h2>daily-quest</h2>
+    <p>this is just a simple description</p>
+    <form>
+    <label>
+      <input type="checkbox" ng-model="dummyComplete" ng-checked="submitComplete()"  ng-disabled="dummyComplete"> completed
+    </label>
+    </form>
+    <p>Created date:</p> 
+    <span>{{dummydate | date:'yyyy-MM-dd'}}</span>
+    <h4> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> hero detail:</h4>
+      <p class="col-md-offset-1">HeroName  - heroJob<p>
+</div>
+</div>
+
+

@@ -1,0 +1,51 @@
+This is a side project for implementing Last Summoner app. 
+We use MEAN-framework for all the implementation
+
+Using multer to upload file:
+	https://codeforgeek.com/2014/11/file-uploads-using-node-js/
+	//uploaded using multer:
+	userPhoto uploaded to  uploads/moogle-mail1439243575077.jpg
+		{ userPhoto: 
+		   { fieldname: 'userPhoto',
+		     originalname: 'moogle-mail.jpg',
+		     name: 'moogle-mail1439243575077.jpg',
+		     encoding: '7bit',
+		     mimetype: 'image/jpeg',
+		     path: 'uploads/moogle-mail1439243575077.jpg',
+		     extension: 'jpg',
+		     size: 73550,
+		     truncated: false,
+		     buffer: null } }
+		POST /api/photo 200 8.681 ms - -
+
+//class active
+
+Finding element based on the element match in the array: db.jobs.find({ratings:{$elemMatch: {username: "admin"}}});
+
+db.jobs.find({ratings:{$elemMatch: {username: "admin"}}});
+db.jobs.update({"name":"knight"}, {
+	$push: {
+		comments: {
+			"username": "lucareto",
+			"info": "This is suitable for beginner"
+		}
+	}
+})
+
+
+username, 
+name,
+info,
+rate, 
+createddate
+updatedate
+completetoday
+streak,
+totalcompleted
+totalmiss
+heroalias
+
+
+Todo List: 
+	> update the structure, all user will have daily, Hero, and Quest in one place. 
+	> This is the most convinient
