@@ -1,0 +1,157 @@
+
+
+<div class="container">
+<div class="row">
+<div class="jumbotron col-md-8">
+        <h1>Welcome</h1>
+        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn btn-info" ng-click="open('sm')" role="button">Sign up today</a></p>
+</div>
+  <div class="col-md-3" ng-hide="isLogin">
+  <h2>Login </h2>
+    <form>
+      <div class="form-group">
+        <label>username:</label>
+        <input type="text" class="form-control" ng-model="name" name="name" placeholder="Enter name" required>
+      </div>
+      <div class="form-group">
+        <label>password:</label>
+        <input type="text" rows="2" class="form-control" ng-model="info" name="info" placeholder="Enter info">
+      </div>
+      <div  class="form-group">
+      <a type="submit" class="btn btn-info" ng-click="isLogin= !isLogin">login</a>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-3" ng-show="isLogin">
+    <img class=" img-responsive btn" src="img/logout.jpg" ng-click="isLogin= !isLogin"/>
+    <div>
+      <p> this will be chat placeholder</p>
+    </div>
+  </div>
+</div>
+
+<div ng-show ="isLogin">
+<div class="row">
+<div class="col-md-3">
+<div class="row">
+  <div class="col-md-3">
+        <img class="media-object img-responsive userpic" src="img/agas.jpg" alt="...">
+  </div>
+  <div class="col-md-9">
+      <h4><strong>{{"hello" + username}}</strong></h4>
+      <p> Cras justo odio <span class="badge">14</span></p>
+  </div>
+  <div class="col-md-12">
+    <div clas="row">
+    <div class="col-md-3">
+      <p><strong>exp:</strong> </p>
+    </div>
+    <div class="col-md-9">
+      <div class="progress">
+      <div class="progress-bar progress-bar-warning" ng-style="{'width': '50%'}"></div>
+  </div>
+  </div>
+  </div>
+  </div>
+   <div class="col-md-12">
+    </hr>
+  </div>
+  <div class="col-md-4">
+      </br>
+      <img class="media-object img-responsive userpic" src="img/agas.jpg">
+  </div>
+   <div class="col-md-4">
+      </br>
+      <img class="media-object img-responsive userpic" src="img/agas.jpg">
+  </div>
+   <div class="col-md-4">
+      </br>
+      <img class="media-object img-responsive userpic" src="img/agas.jpg">
+  </div>
+  </div>
+  </div>
+
+    <div class="col-md-3 well">
+      <h4><b>create hero</b></h4>
+    <form>
+      <div class="form-group">
+        <label>Name:</label>
+        <input type="text" class="form-control" ng-model="name" name="name" placeholder="Enter name" required>
+      </div>
+      <div class="form-group">
+        <label>Job:</label>
+        <select ng-model="model.id" convert-to-number>
+          <option value="0">Zero</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+        </select>
+      </div>
+      <div  class="form-group">
+      <a type="submit" class="btn btn-info">create</a>
+      </div>
+    </form>
+  </div>
+
+
+<div class="col-md-3">
+  <tabset>
+    <tab>
+      <tab-heading>
+        <i class="glyphicon glyphicon-bell"></i> show info!
+      </tab-heading>
+       <div class="list-group">
+          <button type="button" class="list-group-item" ng-click="show()">Cras justo odio</button>
+          <button type="button" class="list-group-item" ng-click="show(1)">Dapibus ac facilisis in</button>
+          <button type="button" class="list-group-item">Morbi leo risus</button>
+          <button type="button" class="list-group-item">Porta ac consectetur ac</button>
+          <button type="button" class="list-group-item">Vestibulum at eros</button>
+       </div>
+       
+    </tab>
+    <tab select="alertMe()">
+      <tab-heading>
+        <i class="glyphicon glyphicon-bell"></i> Alert!
+      </tab-heading>
+      I've got an HTML heading, and a select callback. Pretty cool!
+    </tab>
+  </tabset>
+</div>
+<div class="col-md-3">
+  <div class="well list-group-item">
+            <button type="button" ng-click="showEditDaily()" class="btn-success rightButton"> {{buttonName}} </button>
+            <div ng-hide="showEdit">
+              <h2>{{name}}</h2>
+              <p>{{info}}</p>
+              <form>
+              <label>
+                <input type="checkbox" ng-model="dummyComplete" ng-checked="submitComplete()"  ng-disabled="dummyComplete"> completed
+              </label>
+              </form>
+              <p>Created date:</p> 
+              <span>{{Date.now | date:'yyyy-MM-dd'}}</span>
+              <button type="button" class="btn-danger"><i class="glyphicon glyphicon-bell"></i> delete</button>
+           </div>   
+           <div ng-show="showEdit">
+           </hr>
+              <form>
+                <div class="form-group">
+                  <label>name:</label>
+                  <input type="text" class="form-control" ng-model="name" name="name" placeholder="Enter name" required>
+                </div>
+                <div class="form-group">
+                  <label>info:</label>
+                  <textarea type="text" rows="2" class="form-control" ng-model="info" name="info" placeholder="Enter info"></textarea>
+                </div>
+                <div  class="form-group">
+                  <label>date:</label>
+                  <input type="date" class="form-control" ng-model="name" name="name" placeholder="Enter name" required>
+                </div>
+              </form>
+              <button type="button" class="btn-danger"><i class="glyphicon glyphicon-floppy-disk"></i> save </button>
+          </div>
+  </div>
+</div>
+</div>
+</div>
+</div>

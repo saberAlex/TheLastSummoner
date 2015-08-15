@@ -1,0 +1,32 @@
+body {
+  padding-top: 80px;
+}
+
+
+a {
+  color: #00B7FF;
+}
+
+.rightButton {
+     position: absolute;
+     right: 15px;
+}
+
+.jumbotron {
+    padding: 0.5em 0.6em;
+    margin-right: 20px;
+    h1 {
+        font-size: 2em;
+    }
+    p {
+        font-size: 1.2em;
+        .btn {
+            padding: 0.5em;
+        }
+    }
+}
+
+.userpic {
+	border: 1px solid black;
+	border-radius: 5px;
+}
