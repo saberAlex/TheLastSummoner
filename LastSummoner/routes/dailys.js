@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
+var Daily = require('../models/daily');
 
 
 /* GET home page. */
@@ -9,16 +9,37 @@ var User = require('../models/user');
 // });
 
 router.post("/create/:username", function(req, res, next){
-	var data = {
+	var newDaily = new Daily({
 		name: req.body.name,
+		username: req.params.username,
 		info: req.body.info,
 		rate: req.body.rate
-	};
-	User.createDailyForUsername(req.params.username, data, function(err, user){
+	});
+
+	Daily.createDaily(newDaily, function(err, daily){
 		if(err) throw err;
-		res.json(user);
+		console.log(daily);
+		res.json(daily);
+	});
+});
+
+router.get("/getdaily/:username", function(req, res, next){
+	Daily.getDailyByUsername(req.params.username, function(err, dailies){
+		if(err) throw err;
+		res.json(dailies);
+	});
+});
+
+router.put("/update/:id", function(req, res, next){
+	Daily.updateDailyById(req.params.id, function(err, daily){
+		if(err) throw err;
+		res.json(daily);
 	})
 });
+
+
+
+
 
 
 module.exports = router;

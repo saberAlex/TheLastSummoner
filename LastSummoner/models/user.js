@@ -1,10 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var ObjectID = require('mongodb').ObjectID;
-var moment = require('moment');
-require('moment-range');
-
-
+var async = require("async");
 
 
 var HeroSchema = mongoose.Schema({
@@ -15,81 +12,6 @@ var HeroSchema = mongoose.Schema({
 	job: {
 		type: String,
 		required: true
-	}
-});
-
-var DailySchema = mongoose.Schema({
-	name: {
-		type: String, 
-		required: true
-	},
-	info: {
-		type: String
-	},
-	lastmodified: {
-		type: String,
-		required: true,
-		default: Date.now
-	},
-	createddate: {
-		type: String,
-		required: true,
-		default: Date.now
-	},
-	completed: {
-		type: Boolean,
-		required: true, 
-		default: false
-	},
-	streak: {
-		type: Number,
-		required: true,
-		default: 0
-	},
-	rate: {
-		type: Number,
-		required: true,
-		default: 10
-	}, 
-	isDaily: {
-		type: Boolean,
-		required: true,
-		default: true
-	}
-});
-
-var TaskSchema = mongoose.Schema({
-	name: {
-		type: String, 
-		required: true
-	},
-	info: {
-		type: String
-	},
-	deadline: {
-		type: String,
-		required: true,
-		default: Date.now
-	},
-	createddate: {
-		type: String,
-		required: true,
-		default: Date.now
-	},
-	completed: {
-		type: Boolean,
-		required: true, 
-		default: false
-	},
-	rate: {
-		type: Number,
-		required: true,
-		default: 10
-	},
-	isDaily: {
-		type: Boolean,
-		required: true,
-		default: false
 	}
 });
 
@@ -128,16 +50,15 @@ var UserSchema = mongoose.Schema({
 		exp: {
 			type: Number, 
 			required: true,
-			default: 0
+			default: 0,
+			min : 0
 		},
 		totalexp: {
 			type: Number,
 			required: true,
 			default: 0
 		}
-	},
-	daily: [DailySchema],
-	task: [TaskSchema]
+	}
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);
@@ -189,20 +110,4 @@ module.exports.removeHeroForUsername = function(username, heroId, callback){
 			totalHero: -1
 		}
 	},{new: true}, callback);
-}
-
-//QUEST RELATED
-//DAILY RELATED:
-module.exports.createDailyForUsername = function(username, newDaily, callback){
-	User.findOneAndUpdate({"username": username}, {
-		$push: {
-			daily: newDaily
-		}
-	},{new: true, upsert: false}, callback);
-}
-
-module.exports.checkDailyByUsername = function(username){
-	User.findOne({username: username}, {"daily._id": 1, _id : 0}, function(err, user){
-
-	});
 }

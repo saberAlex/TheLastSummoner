@@ -9,7 +9,7 @@
         <div ng-show="isLogin" class="btn-group" role="group">
           <button type="button" class="btn btn-info" ng-click="openDaily('sm')">create daily-job</button>
           <button type="button" class="btn btn-success">create task</button>
-          <button type="button" class="btn btn-danger">go to arena</button>
+          <button type="button" class="btn btn-danger" ng-click="getUpdate()">go to arena</button>
         </div>
         <br>
 </div>
@@ -123,8 +123,8 @@
                 <input type="checkbox" ng-model="quest.completed" ng-checked="submitCompleteQuest(quest.isDaily)"  ng-disabled="quest.completed"> completed
               </label>
               </form>
-              <p>Created date:</p> 
-              <span>{{quest.createddate | date:'dd-MM-yyyy'}}</span>
+              <p>Last-updated:</p> 
+              <span>{{quest.lastmodified | date:'dd-MM-yyyy'}}</span>
               <br>
               <button type="button" class="btn-danger"><i class="glyphicon glyphicon-bell"></i> delete</button>
            </div>   

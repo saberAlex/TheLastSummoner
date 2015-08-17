@@ -80,6 +80,7 @@
 
 	     $http.post('/users/login', data).success(function(data, status){
 	      console.log(status);
+	      $log.info(data);
 	      $rootScope.user = data;
 	      $log.info($rootScope.user);
 	      $scope.isLogin = true;
@@ -155,9 +156,23 @@
   };
 
   $scope.showDaily = function(key){
-  	$scope.quest = jQuery.extend(true, {}, $rootScope.user.daily[key]);
+  	var id =  $rootScope.user.daily[key]._id;
+  	$http.put("/dailys/update/"+ id).success(function(data){
+  		if(data){
+  			$rootScope.user.daily[key] = data;
+  		} 
+  		 $scope.quest = jQuery.extend(true, {}, $rootScope.user.daily[key]);
+  		
+  	});
   }
 
+  $scope.getUpdate = function() {
+  	$http.get("dailys/getdaily/" +$rootScope.user.username).success(function(data){
+  		$rootScope.user.daily = data;
+  		$log.info($rootScope.user.daily);
+
+  	});
+  };
 
 });
 

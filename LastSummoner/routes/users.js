@@ -111,14 +111,22 @@ router.post('/login', passport.authenticate('local'), function(req, res){
       console.log(err);
     }
     console.log("I AM LOGIN");
-    console.dir(user);
+   //; console.log(user);
     res.json(user);
   });
-
 });
 
 router.get('/logout', function(req, res){
   req.logout();
 }); 
+
+router.get("/getUpdates/:username", function(req, res){
+  User.checkDailyByUsername(req.params.username, function(err, user){
+    if(err) console.log(err);
+    console.log("GETCALLED");
+    res.json(user);
+  });
+});
+
 
 module.exports = router;
