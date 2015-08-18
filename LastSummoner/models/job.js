@@ -90,5 +90,5 @@ module.exports.addCommentByName = function(name, data, callback) {
 		$push: {
 			comments : newComment
 		}
-	}, callback);
+	},{new: true}, callback);
 }

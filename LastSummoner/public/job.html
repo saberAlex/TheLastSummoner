@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<style>
+		.jobWidgetAvatar {
+		float: left;
+		margin: 4px 12px 6px 0px;
+		max-width: 125px;
+		max-height: 125px;
+		}
+		.commentDate {
+			float: right;
+		}
+		textarea {
+     width: 100%;
+     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+     box-sizing: border-box;         /* Opera/IE 8+ */
+		}
+	</style>
+	<title><%title%></title>
+	<script>
+				 var dojoConfig = (function(){
+					var base = location.href.split("/");
+					base.pop();
+					base = base.join("/");
+					return {
+						async: true,
+						isDebug: true,
+						packages: [{
+							name: "keybladeFactory",
+							location: base
+						}]
+					};
+				})();
+	</script>
+	<script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">The Last Summoner</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#">home</a></li>
+            <li><a href="#about">arena</a></li>
+            <li><a href="/job">job</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="list-group" id="listJob"></div>
+				<textarea id="newComment" placeholder="Enter the text..."></textarea>
+				<button class="btn btn-info btn-block" id="newCommentButton">new comment</button>
+			</div>
+			<div class="col-md-9" id="JobWidgetContainer"></div>
+		</div>
+
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./appDojo.js"></script>
+</body>
+</html>
