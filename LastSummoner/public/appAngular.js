@@ -155,6 +155,38 @@
     });
   };
 
+
+    $scope.openTask = function (size) {
+      var modalInstance = $modal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'views/modal/task.modal.html',
+        controller: ['$scope','$log', '$http', '$rootScope', function($scope, $log, $http, $rootScope) {
+        	$scope.userExist = true;
+        	$scope.createTask = function() {
+        	  var url = "/tasks/create/"+ $rootScope.user.username;
+        	  var data = {
+        	  	name: $scope.task.name,
+        	  	info: $scope.task.info,
+        	  	rate: $scope.task.rate,
+        	  	deadline: $scope.task.deadline
+
+        	  }
+  	      $http.post(url, data).success(function(data, status){
+  	       console.log(status);
+  	       $rootScope.user = data;
+  	       $log.info($rootScope.user);
+  	      });
+        	};
+       }],
+        size: size,
+        resolve: {
+          items: function () {
+            return $scope.items;
+          }
+        }
+      });
+    };
+
   $scope.showDaily = function(key){
   	var id =  $rootScope.user.daily[key]._id;
   	$http.put("/dailys/update/"+ id).success(function(data){
@@ -162,14 +194,50 @@
   			$rootScope.user.daily[key] = data;
   		} 
   		 $scope.quest = jQuery.extend(true, {}, $rootScope.user.daily[key]);
+  		 $scope.isDaily = true;
+  	});
+  }
+  	
+  	//$scope.quest.isDaily = false;
+  	  		 $scope.isDaily = false;
+
+
+  $scope.showTask = function(key){
+  	var id =  $rootScope.user.task[key]._id;
+  	$http.put("/tasks/update/"+ id).success(function(data){
+  		if(data){
+  			$rootScope.user.task[key] = data;
+  		} 
+  		 $scope.quest = jQuery.extend(true, {}, $rootScope.user.task[key]);
+  		 $scope.isDaily = false;
   		
   	});
   }
+
+  $scope.submitCompleteQuest = function( isDaily, quest ) {
+  	quest.completed = true;
+  	if(!$scope.isDaily) {
+  		var id =  quest._id;
+  		$http.put("/tasks/complete/"+ id).success(function(data){
+  			  		if(data){
+  			$rootScope.user.task[key] = data;
+  		} 
+  		 $scope.quest = jQuery.extend(true, {}, $rootScope.user.task[key]);
+  		});
+  	}
+  }
+
 
   $scope.getUpdate = function() {
   	$http.get("dailys/getdaily/" +$rootScope.user.username).success(function(data){
   		$rootScope.user.daily = data;
   		$log.info($rootScope.user.daily);
+
+  	});
+  	$http.get("tasks/gettasks/" +$rootScope.user.username).success(function(data){
+  		$rootScope.user.task = data;
+  		$log.info("the task");
+  		$log.info($rootScope.user.task[0]._id);
 
   	});
   };
